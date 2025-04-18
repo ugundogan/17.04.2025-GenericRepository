@@ -7,5 +7,7 @@
         void Sil(int id);
         TEntity Bul(int id);
         List<TEntity> Listele();
+
+        IQueryable<TEntity> ListeleQuery();
     }
 }

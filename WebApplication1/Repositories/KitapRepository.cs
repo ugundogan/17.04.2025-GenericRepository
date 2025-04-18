@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using WebApplication1.Data;
 using WebApplication1.Models;
@@ -8,23 +9,27 @@ namespace WebApplication1.Repositories
 {
     public class KitapRepository : BaseRepository<Kitap>
     {
-        public KitapRepository(SahafDbContext context) : base(context)
+        private readonly IMapper _mapper;
+        public KitapRepository(SahafDbContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public KitapDetay_VM KitapDetay(int id)
         {
-            KitapDetay_VM kitap = _table.Where(x => x.KitapId == id).Include(x => x.Kategori).Include(x => x.YayinEvi).Include(x => x.Yazar).Select(x => new KitapDetay_VM
-            {
-                KitapAdi = x.KitapAdi,
-                Ozet = x.Ozet,
-                SayfaSayisi = x.SayfaSayisi,
-                Fiyat = x.Fiyat,
-                KategoriAd = x.Kategori.KategoriAdi,
-                YayinEviAd = x.YayinEvi.YayinEviAdi,
-                YazarAd = x.Yazar.Ad
-            }).FirstOrDefault();
-            return kitap;
+            var kitap = Bul(id);
+
+            _context.Entry(kitap).Navigation("Kategori").Load();
+            _context.Entry(kitap).Navigation("Yazar").Load();
+            _context.Entry(kitap).Navigation("YayinEvi").Load();
+
+
+            //Mapperin özel kullanımını anlatmak için burada Mapper kullanıdk..
+            //NŞA'da Repository içerisinde yazılmaaaaaaz.
+            KitapDetay_VM kitapDetay = _mapper.Map<KitapDetay_VM>(kitap);
+
+            
+            return kitapDetay;
         }
     }
 }

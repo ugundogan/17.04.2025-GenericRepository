@@ -26,16 +26,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            List<KitapListe_VM> kitapListesi = _kitapRepository.Listele().Select(x => new KitapListe_VM
-            {
-                KitapId = x.KitapId,
-                KitapAdi = x.KitapAdi,
-                Fiyat = x.Fiyat,
-                YazarId = x.YazarId,
-                KategoriId = x.KategoriId,
-                YayinEviId = x.YayinEviId
-            }).ToList();
-            return View(kitapListesi);
+            var kitapListesi = _kitapRepository.Listele();
+            List<KitapListe_VM> viewData = _mapper.Map<List<KitapListe_VM>>(kitapListesi);
+            return View(viewData);
         }
 
         public IActionResult KitapEkle()

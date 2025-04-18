@@ -38,6 +38,11 @@ namespace WebApplication1.Repositories
             return _table.ToList();
         }
 
+        public IQueryable<TEntity> ListeleQuery()
+        {
+            return _table;
+        }
+
         public void Sil(int id)
         {
             _table.Remove(Bul(id));
