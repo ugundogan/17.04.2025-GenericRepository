@@ -1,0 +1,4 @@
+﻿//Üyelik sistemini kullanarak;
+//Generic Repository mutlaka olmalı
+//TODO List(eylemAdi, Tarih, Aciklama)
+//TODO List Kategori(İş, Ev, Haftasonu)

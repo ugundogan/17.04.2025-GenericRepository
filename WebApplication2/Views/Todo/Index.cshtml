@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication2.ViewModels.YapilacakListe_VM>
+
+@{
+    ViewData["Title"] = "Yapılacaklar Listesi";
+}
+
+<h1 class="text-center my-4">@ViewData["Title"]</h1>
+
+<div class="text-end mb-3">
+    <a asp-action="Ekle" class="btn btn-success">Yeni Görev Ekle</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.YapilacakID)</th>
+            <th>@Html.DisplayNameFor(model => model.Baslik)</th>
+            <th>@Html.DisplayNameFor(model => model.PlanlananTarih)</th>
+            <th>@Html.DisplayNameFor(model => model.KategoriAd)</th>
+            <th>@Html.DisplayNameFor(model => model.YapildiMi)</th>
+            <th class="text-center">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.YapilacakID</td>
+                <td>@item.Baslik</td>
+                <td>@item.PlanlananTarih.ToShortDateString()</td>
+                <td>@item.KategoriAd</td>
+                <td>
+                    @if (item.YapildiMi)
+                    {
+                        <a class="btn btn-sm btn-success" asp-action="Yapildi" asp-route-id="@item.YapilacakID">Yapıldı</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-sm btn-warning" asp-action="Yapildi" asp-route-id="@item.YapilacakID">Yapılmadı</a>
+                    }
+                </td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Düzenle" asp-route-id="@item.YapilacakID" class="btn btn-sm btn-primary">Düzenle</a>
+
+                        <form asp-action="Detay" asp-route-id="@item.YapilacakID" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-info">Detay</button>
+                        </form>
+
+                        <form asp-action="Sil" asp-route-id="@item.YapilacakID" method="post" class="d-inline" onsubmit="return confirm('Silmek istediğinize emin misiniz?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Sil</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,13 @@
+﻿﻿
+
+@if (User.Identity.Name == null)
+{
+    //SignIn değilse
+    <a asp-area="" asp-controller="Login" asp-action="Register" class="btn btn-primary">Üye Ol</a>
+    <a asp-area="" asp-controller="Login" asp-action="Index" class="btn btn-primary">Giriş Yap</a>
+}
+else
+{
+    <a asp-area="" asp-controller="Login" asp-action="Logout" class="btn btn-primary">Çıkış Yap</a>
+
+}
