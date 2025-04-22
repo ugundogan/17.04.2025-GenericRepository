@@ -16,5 +16,6 @@ namespace WebApplication1.Controllers
         {
             return View(_kategoriRepository.Listele());
         }
+        
     }
 }

@@ -60,7 +60,7 @@ namespace WebApplication2.Controllers
                 else
                 {
                     
-                    ModelState.AddModelError("HATA", strAck);
+                    ModelState.AddModelError("HATA", "Hatalı giriş");
                 }
             }
             return View();
